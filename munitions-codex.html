@@ -1,0 +1,1677 @@
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Munitions Codex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/orbitron/v35/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1nyKS6xpg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/orbitron/v35/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1ny_Cmxpg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/orbitron/v35/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1nysimxpg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pasEcOs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDIxapCSOBg7S-QT7q4A.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pb0EMOs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pbYF8Os.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pa8FsOs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Share Tech Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sharetechmono/v16/J7aHnp1uDWRBEqV98dVQztYldFc7pA.ttf) format('truetype');
+}
+
+</style>
+
+<style>
+  :root {
+    --void: #05090d;
+    --panel: #0b1620;
+    --panel-2: #0f2030;
+    --grid: #1a3548;
+    --edge: #2a5a7a;
+    --edge-2: #14364c;
+    --cyan: #4ecbff;
+    --cyan-glow: #00d9ff;
+    --amber: #ffb84d;
+    --steel: #7a8f9e;
+    --chrome: #dceff9;
+    --danger: #ff5563;
+    --success: #7cffb0;
+    --brass: #d4a24a;
+    --lead: #94a4b3;
+    --powder: #ff8c42;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @media print {
+    body { background: var(--void) !important; }
+    .dot { animation: none !important; }
+    .section, .choke-card, .pattern-cell, .pc-panel, .caliber-card, .material-card, .load-card, .special-card { break-inside: avoid; page-break-inside: avoid; }
+    .hud-header, .section-title { break-after: avoid; }
+    .container { padding: 12px !important; max-width: none !important; }
+  }
+
+  body {
+    background: var(--void);
+    color: var(--chrome);
+    font-family: 'Rajdhani', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    min-height: 100vh;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(78,203,255,0.025) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(78,203,255,0.08), transparent 70%),
+      radial-gradient(ellipse 700px 400px at 90% 110%, rgba(0,217,255,0.05), transparent 70%);
+  }
+
+  ::selection { background: var(--cyan); color: var(--void); }
+
+  .container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 28px 24px 48px;
+  }
+
+  /* Back to index */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px;
+    margin-bottom: 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--edge);
+    background: rgba(11,22,32,0.7);
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .back-link:hover, .back-link:focus-visible {
+    border-color: var(--cyan);
+    background: rgba(78,203,255,0.08);
+    color: var(--cyan-glow);
+    outline: none;
+  }
+  .back-link .arrow {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  /* ---------- HEADER ---------- */
+  .hud-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 28px;
+    border: 1px solid var(--edge);
+    background: linear-gradient(90deg, var(--panel) 0%, var(--panel-2) 60%, var(--panel) 100%);
+    padding: 18px 26px;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+    box-shadow: inset 0 0 40px rgba(78,203,255,0.06);
+  }
+  .badge {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    padding: 6px 12px;
+    border: 1px solid var(--cyan);
+    background: rgba(78,203,255,0.06);
+    text-shadow: 0 0 8px rgba(78,203,255,0.4);
+  }
+  .hud-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 3vw, 30px);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--chrome);
+    margin: 0 0 4px;
+    text-shadow: 0 0 14px rgba(78,203,255,0.35);
+    text-wrap: balance;
+  }
+  .hud-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--steel);
+    text-transform: uppercase;
+  }
+  .status {
+    display: flex; gap: 10px; align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 2px; color: var(--cyan);
+    white-space: nowrap;
+  }
+  .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--cyan-glow);
+    box-shadow: 0 0 10px var(--cyan-glow), 0 0 4px var(--cyan-glow);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+  @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+
+  /* ---------- SECTIONS ---------- */
+  .section { margin-top: 40px; }
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px; color: var(--cyan);
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-label::before {
+    content: ''; width: 22px; height: 1px;
+    background: var(--cyan);
+    box-shadow: 0 0 6px var(--cyan-glow);
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--edge), transparent);
+  }
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(18px, 2.2vw, 24px);
+    letter-spacing: 3px; text-transform: uppercase;
+    margin: 0 0 22px;
+    color: var(--chrome);
+    text-wrap: balance;
+  }
+
+  .panel {
+    border: 1px solid var(--edge);
+    background: linear-gradient(180deg, var(--panel) 0%, rgba(11,22,32,0.55) 100%);
+    padding: 26px;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  }
+  .panel::before, .panel::after {
+    content: ''; position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--cyan);
+    opacity: 0.7;
+  }
+  .panel::before { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+  .panel::after { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+
+  /* ---------- BODY TEXT ---------- */
+  .body-text {
+    font-size: 16px; line-height: 1.7; color: var(--chrome);
+    max-width: 62ch;
+  }
+  .body-text p:first-child { margin-top: 0; }
+  .body-text p:last-child { margin-bottom: 0; }
+  .body-text strong {
+    color: var(--cyan); font-weight: 600;
+    text-shadow: 0 0 6px rgba(78,203,255,0.25);
+  }
+
+  /* ---------- ANATOMY ---------- */
+  .anatomy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 28px;
+    align-items: center;
+  }
+  .anatomy-diagram {
+    background: var(--void);
+    border: 1px solid var(--edge-2);
+    padding: 14px;
+  }
+  .anatomy-diagram svg { display: block; width: 100%; height: auto; }
+
+  .anatomy-legend {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 10px;
+  }
+  .anatomy-legend li {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+    align-items: baseline;
+    padding: 8px 12px;
+    border-left: 2px solid var(--cyan);
+    background: rgba(11,22,32,0.7);
+  }
+  .anatomy-num {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: var(--cyan);
+    font-size: 15px;
+    text-shadow: 0 0 6px rgba(78,203,255,0.35);
+  }
+  .anatomy-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    color: var(--chrome);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    display: block;
+  }
+  .anatomy-desc {
+    font-size: 13px; color: var(--steel);
+    line-height: 1.45;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ---------- CALIBER CARDS ---------- */
+  .caliber-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+  }
+  .caliber-card {
+    border: 1px solid var(--edge);
+    background: linear-gradient(160deg, var(--panel) 0%, rgba(15,32,48,0.85) 100%);
+    padding: 18px;
+    text-align: center;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+  .caliber-huge {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    line-height: 1;
+    text-shadow: 0 0 12px rgba(78,203,255,0.4);
+    font-variant-numeric: tabular-nums;
+  }
+  .caliber-diameter {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    letter-spacing: 1.5px;
+    margin-top: 4px;
+  }
+  .caliber-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--chrome);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--grid);
+  }
+  .caliber-note {
+    font-size: 12px; color: var(--steel);
+    margin-top: 4px; line-height: 1.4;
+  }
+
+  /* ---------- SHELL LENGTH VISUAL ---------- */
+  .shell-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .shell-cell {
+    text-align: center;
+    padding: 14px 10px;
+    border: 1px solid var(--edge);
+    background: var(--panel);
+  }
+  .shell-mm {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--cyan);
+    letter-spacing: 1px;
+    font-variant-numeric: tabular-nums;
+  }
+  .shell-mm small { font-size: 11px; color: var(--steel); font-weight: 500; margin-left: 2px; }
+  .shell-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--chrome);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 4px 0;
+  }
+  .shell-use {
+    font-size: 11px;
+    color: var(--steel);
+    line-height: 1.4;
+    margin-top: 6px;
+  }
+  .shell-viz {
+    height: 60px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 6px 0 4px;
+  }
+  .shell-bar {
+    width: 16px;
+    background: linear-gradient(180deg, var(--amber) 0%, var(--brass) 15%, #1a3548 15%, #0a1a26 100%);
+    border: 1px solid var(--edge);
+    border-bottom: none;
+  }
+
+  /* ---------- SCHROT TABLE ---------- */
+  .matrix-wrap {
+    overflow-x: auto;
+    margin-top: 4px;
+    scrollbar-color: var(--edge) transparent;
+  }
+  .matrix {
+    width: 100%;
+    min-width: 860px;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .matrix th {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 2px; color: var(--cyan);
+    text-transform: uppercase; text-align: left;
+    padding: 12px 12px;
+    border-bottom: 1px solid var(--edge);
+    background: rgba(78,203,255,0.04);
+  }
+  .matrix td {
+    padding: 12px;
+    border-bottom: 1px solid var(--grid);
+    vertical-align: middle;
+    font-variant-numeric: tabular-nums;
+    color: var(--chrome);
+  }
+  .matrix tr:last-child td { border-bottom: none; }
+  .matrix tr:hover td { background: rgba(78,203,255,0.04); }
+  .matrix .nr {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: var(--cyan);
+    font-size: 16px;
+  }
+  .matrix .mm {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--amber);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .matrix .pellet-viz {
+    display: inline-block;
+    background: var(--lead);
+    border-radius: 50%;
+    box-shadow: inset -1px -1px 2px rgba(0,0,0,0.5), 0 0 3px rgba(78,203,255,0.2);
+    vertical-align: middle;
+  }
+  .matrix .why { color: var(--steel); font-size: 13px; }
+  .matrix .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--cyan);
+    border: 1px solid var(--edge);
+    background: rgba(78,203,255,0.05);
+    white-space: nowrap;
+  }
+
+
+  .material-photo {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--void);
+    border: 1px solid var(--edge-2);
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .material-photo img {
+    display: block; width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .special-icon.photo { padding: 0; }
+  .special-icon.photo img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+
+  /* ---------- MATERIAL CARDS ---------- */
+  .material-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .material-card {
+    border: 1px solid var(--edge);
+    background: linear-gradient(160deg, var(--panel) 0%, rgba(15,32,48,0.85) 100%);
+    padding: 20px;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+  .material-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 50px;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan-glow);
+  }
+  .material-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .material-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--chrome);
+    margin: 0;
+  }
+  .material-density {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 1px;
+  }
+  .material-props {
+    display: grid;
+    gap: 6px;
+    margin: 10px 0;
+    padding: 10px 0;
+    border-top: 1px dashed var(--grid);
+    border-bottom: 1px dashed var(--grid);
+  }
+  .prop-row {
+    display: grid;
+    grid-template-columns: 74px 1fr;
+    gap: 8px;
+    font-size: 13px;
+    align-items: baseline;
+  }
+  .prop-key {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--steel);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .prop-val { color: var(--chrome); }
+  .prop-val.warn { color: var(--amber); font-weight: 600; }
+  .material-use {
+    font-size: 13px;
+    color: var(--chrome);
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+  .material-use small {
+    display: block;
+    color: var(--steel);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ---------- LOAD CARDS (V0 / weight) ---------- */
+  .load-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .load-card {
+    border: 1px solid var(--edge);
+    background: linear-gradient(160deg, var(--panel) 0%, rgba(15,32,48,0.85) 100%);
+    padding: 18px;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+  .load-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+  .load-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 8px 0 12px;
+  }
+  .load-metric {
+    padding: 10px;
+    background: rgba(5,9,13,0.6);
+    border: 1px solid var(--grid);
+    text-align: center;
+  }
+  .load-metric-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--steel);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: block;
+  }
+  .load-metric-val {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--cyan);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+    margin-top: 2px;
+  }
+  .load-metric-val small {
+    font-size: 11px; color: var(--steel); font-weight: 500;
+  }
+  .load-desc {
+    font-size: 13px;
+    color: var(--chrome);
+    line-height: 1.5;
+  }
+  .load-example {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: var(--void);
+    border: 1px dashed var(--edge);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.5px;
+  }
+
+  /* ---------- SLUG ANATOMY ---------- */
+  .slug-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+    margin: 20px 0 24px;
+  }
+  .slug-card {
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+  .slug-diagram {
+    background: var(--void);
+    border: 1px solid var(--edge-2);
+    padding: 6px;
+    margin-bottom: 14px;
+  }
+  .slug-diagram svg { display: block; width: 100%; height: auto; }
+  .slug-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--chrome);
+    margin: 0 0 3px;
+    text-align: center;
+  }
+  .slug-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--cyan);
+    letter-spacing: 1.5px;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .slug-legend {
+    list-style: none;
+    padding: 12px 0 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+    border-top: 1px dashed var(--grid);
+  }
+  .slug-legend li {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .slug-legend .num {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: var(--cyan);
+    font-size: 12px;
+    text-align: center;
+    text-shadow: 0 0 4px rgba(78,203,255,0.35);
+  }
+  .slug-legend .name {
+    color: var(--chrome);
+    font-weight: 600;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 10.5px;
+    font-family: 'Rajdhani', sans-serif;
+  }
+  .slug-legend .desc {
+    color: var(--steel);
+    font-size: 12px;
+    display: block;
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+
+  /* ---------- SPECIAL AMMO ---------- */
+  .special-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .special-card {
+    border: 1px solid var(--edge);
+    background: linear-gradient(180deg, var(--panel) 0%, rgba(11,22,32,0.7) 100%);
+    padding: 20px;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+  .special-icon {
+    width: 100%;
+    height: 90px;
+    background: var(--void);
+    border: 1px solid var(--edge-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .special-icon svg { width: 100%; height: 100%; }
+  .special-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 0 6px;
+    color: var(--chrome);
+  }
+  .special-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--cyan);
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+  }
+  .special-desc {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--chrome);
+  }
+
+  /* ---------- EXAMPLES TABLE ---------- */
+  .examples { }
+  .ex-row {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--grid);
+    align-items: center;
+  }
+  .ex-row:last-child { border-bottom: none; }
+  .ex-code {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    color: var(--amber);
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 6px;
+    border: 1px solid var(--edge);
+    background: var(--void);
+  }
+  .ex-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    color: var(--chrome);
+    font-size: 15px;
+  }
+  .ex-name small {
+    display: block;
+    color: var(--steel);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-top: 2px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  .ex-use {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--cyan);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--edge);
+    background: rgba(78,203,255,0.05);
+    white-space: nowrap;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    margin-top: 40px;
+    padding: 18px 26px;
+    border-top: 1px solid var(--edge);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--steel);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+  .footer span { color: var(--cyan); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 780px) {
+    .anatomy-grid { grid-template-columns: 1fr; }
+    .hud-header {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 16px 20px;
+    }
+    .status { justify-self: start; }
+    .ex-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="container">
+
+  <a class="back-link" href="./index.html" target="_top"><span class="arrow">←</span> Zurück · KR Wolf Index</a>
+
+  <!-- HEADER -->
+  <header class="hud-header">
+    <div class="badge">ORD/AMM·03</div>
+    <div>
+      <h1 class="hud-title">Munitions Codex</h1>
+      <div class="hud-subtitle">Flintenpatronen &nbsp;·&nbsp; Systematik &amp; Bezeichnung</div>
+    </div>
+    <div class="status"><span class="dot"></span> Signal aktiv</div>
+  </header>
+
+  <!-- 01 ANATOMIE -->
+  <section class="section">
+    <div class="section-label">01 &nbsp;·&nbsp; Aufbau</div>
+    <h2 class="section-title">Anatomie einer Schrotpatrone</h2>
+    <div class="panel">
+      <div class="anatomy-grid">
+
+        <div class="anatomy-diagram">
+          <svg viewBox="0 0 260 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aufgeschnittene Schrotpatrone">
+            <defs>
+              <pattern id="agrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M20 0L0 0 0 20" fill="none" stroke="#14364c" stroke-width="0.4"/>
+              </pattern>
+              <linearGradient id="brass" x1="0" x2="1">
+                <stop offset="0" stop-color="#8a6428"/>
+                <stop offset="0.5" stop-color="#d4a24a"/>
+                <stop offset="1" stop-color="#7a5820"/>
+              </linearGradient>
+              <linearGradient id="hull" x1="0" x2="1">
+                <stop offset="0" stop-color="#1a2830"/>
+                <stop offset="0.5" stop-color="#2a3b45"/>
+                <stop offset="1" stop-color="#15242e"/>
+              </linearGradient>
+              <linearGradient id="powder" x1="0" x2="1">
+                <stop offset="0" stop-color="#8a4a20"/>
+                <stop offset="0.5" stop-color="#ff8c42"/>
+                <stop offset="1" stop-color="#6a3818"/>
+              </linearGradient>
+              <linearGradient id="wad" x1="0" x2="1">
+                <stop offset="0" stop-color="#4a3a2a"/>
+                <stop offset="0.5" stop-color="#8a6a4a"/>
+                <stop offset="1" stop-color="#3a2a1a"/>
+              </linearGradient>
+            </defs>
+            <rect width="260" height="380" fill="url(#agrid)" opacity="0.6"/>
+
+            <!-- corner ticks -->
+            <g stroke="#4ecbff" stroke-width="1" fill="none" opacity="0.6">
+              <path d="M4 4 L14 4 M4 4 L4 14"/>
+              <path d="M256 4 L246 4 M256 4 L256 14"/>
+              <path d="M4 376 L14 376 M4 376 L4 366"/>
+              <path d="M256 376 L246 376 M256 376 L256 366"/>
+            </g>
+
+            <!-- Star crimp (top) -->
+            <g stroke="#4ecbff" stroke-width="0.6" fill="url(#hull)">
+              <path d="M80 40 L100 30 L130 34 L160 30 L180 40 L180 55 L80 55 Z"/>
+              <line x1="130" y1="30" x2="130" y2="55" stroke="#0a1620" stroke-width="1"/>
+              <line x1="105" y1="45" x2="155" y2="45" stroke="#0a1620" stroke-width="0.6"/>
+            </g>
+
+            <!-- Hull body (plastic) -->
+            <rect x="80" y="55" width="100" height="230" fill="url(#hull)" stroke="#4ecbff" stroke-width="0.8"/>
+
+            <!-- Cutaway internal view -->
+            <!-- Schrot layer -->
+            <rect x="82" y="60" width="96" height="80" fill="#0a1620"/>
+            <g fill="#94a4b3" stroke="#5a6a75" stroke-width="0.3">
+              <circle cx="92" cy="70" r="4"/><circle cx="102" cy="72" r="4"/><circle cx="112" cy="70" r="4"/>
+              <circle cx="122" cy="72" r="4"/><circle cx="132" cy="70" r="4"/><circle cx="142" cy="72" r="4"/>
+              <circle cx="152" cy="70" r="4"/><circle cx="162" cy="72" r="4"/><circle cx="172" cy="70" r="4"/>
+              <circle cx="88" cy="80" r="4"/><circle cx="98" cy="82" r="4"/><circle cx="108" cy="80" r="4"/>
+              <circle cx="118" cy="82" r="4"/><circle cx="128" cy="80" r="4"/><circle cx="138" cy="82" r="4"/>
+              <circle cx="148" cy="80" r="4"/><circle cx="158" cy="82" r="4"/><circle cx="168" cy="80" r="4"/>
+              <circle cx="92" cy="92" r="4"/><circle cx="102" cy="94" r="4"/><circle cx="112" cy="92" r="4"/>
+              <circle cx="122" cy="94" r="4"/><circle cx="132" cy="92" r="4"/><circle cx="142" cy="94" r="4"/>
+              <circle cx="152" cy="92" r="4"/><circle cx="162" cy="94" r="4"/><circle cx="172" cy="92" r="4"/>
+              <circle cx="88" cy="104" r="4"/><circle cx="98" cy="106" r="4"/><circle cx="108" cy="104" r="4"/>
+              <circle cx="118" cy="106" r="4"/><circle cx="128" cy="104" r="4"/><circle cx="138" cy="106" r="4"/>
+              <circle cx="148" cy="104" r="4"/><circle cx="158" cy="106" r="4"/><circle cx="168" cy="104" r="4"/>
+              <circle cx="92" cy="116" r="4"/><circle cx="102" cy="118" r="4"/><circle cx="112" cy="116" r="4"/>
+              <circle cx="122" cy="118" r="4"/><circle cx="132" cy="116" r="4"/><circle cx="142" cy="118" r="4"/>
+              <circle cx="152" cy="116" r="4"/><circle cx="162" cy="118" r="4"/><circle cx="172" cy="116" r="4"/>
+              <circle cx="88" cy="128" r="4"/><circle cx="98" cy="130" r="4"/><circle cx="108" cy="128" r="4"/>
+              <circle cx="118" cy="130" r="4"/><circle cx="128" cy="128" r="4"/><circle cx="138" cy="130" r="4"/>
+              <circle cx="148" cy="128" r="4"/><circle cx="158" cy="130" r="4"/><circle cx="168" cy="128" r="4"/>
+            </g>
+
+            <!-- Wad / Pfropfen -->
+            <rect x="82" y="140" width="96" height="40" fill="url(#wad)"/>
+            <path d="M82 150 L178 150" stroke="#3a2a1a" stroke-width="0.4"/>
+            <path d="M82 160 L178 160" stroke="#3a2a1a" stroke-width="0.4"/>
+            <path d="M82 170 L178 170" stroke="#3a2a1a" stroke-width="0.4"/>
+            <!-- Cup -->
+            <path d="M82 180 Q 90 175 100 175 L 160 175 Q 170 175 178 180 L 178 175 L 82 175 Z" fill="#5a4a3a" opacity="0.8"/>
+
+            <!-- Powder chamber -->
+            <rect x="82" y="180" width="96" height="60" fill="url(#powder)" opacity="0.75"/>
+            <g fill="#4a2810">
+              <circle cx="92" cy="195" r="1.2"/><circle cx="105" cy="200" r="1.2"/><circle cx="118" cy="192" r="1.2"/>
+              <circle cx="130" cy="205" r="1.2"/><circle cx="145" cy="198" r="1.2"/><circle cx="160" cy="210" r="1.2"/>
+              <circle cx="172" cy="200" r="1.2"/><circle cx="98" cy="215" r="1.2"/><circle cx="115" cy="220" r="1.2"/>
+              <circle cx="132" cy="225" r="1.2"/><circle cx="148" cy="218" r="1.2"/><circle cx="165" cy="225" r="1.2"/>
+              <circle cx="102" cy="232" r="1.2"/><circle cx="128" cy="235" r="1.2"/><circle cx="155" cy="232" r="1.2"/>
+            </g>
+
+            <!-- Brass base -->
+            <rect x="76" y="240" width="108" height="70" fill="url(#brass)" stroke="#7a5820" stroke-width="0.6"/>
+            <rect x="76" y="240" width="108" height="4" fill="#5a4218"/>
+            <rect x="76" y="308" width="108" height="4" fill="#5a4218"/>
+
+            <!-- Rim -->
+            <rect x="70" y="310" width="120" height="12" fill="#8a6428" stroke="#5a4218" stroke-width="0.6"/>
+            <rect x="70" y="322" width="120" height="4" fill="#6a4a1a"/>
+
+            <!-- Primer -->
+            <circle cx="130" cy="316" r="10" fill="#3a2818" stroke="#1a1008" stroke-width="1"/>
+            <circle cx="130" cy="316" r="4" fill="#8a6428"/>
+
+            <!-- Labels with callouts -->
+            <g font-family="Share Tech Mono" font-size="9" fill="#4ecbff" letter-spacing="1">
+              <!-- 1 Sternverschluss -->
+              <circle cx="200" cy="42" r="9" fill="#0b1620" stroke="#4ecbff"/>
+              <text x="200" y="46" text-anchor="middle" font-weight="700">1</text>
+              <line x1="180" y1="42" x2="191" y2="42" stroke="#4ecbff" stroke-dasharray="2,2"/>
+
+              <!-- 2 Schrot -->
+              <circle cx="220" cy="95" r="9" fill="#0b1620" stroke="#4ecbff"/>
+              <text x="220" y="99" text-anchor="middle" font-weight="700">2</text>
+              <line x1="178" y1="95" x2="211" y2="95" stroke="#4ecbff" stroke-dasharray="2,2"/>
+
+              <!-- 3 Pfropfen / Wad -->
+              <circle cx="220" cy="160" r="9" fill="#0b1620" stroke="#4ecbff"/>
+              <text x="220" y="164" text-anchor="middle" font-weight="700">3</text>
+              <line x1="178" y1="160" x2="211" y2="160" stroke="#4ecbff" stroke-dasharray="2,2"/>
+
+              <!-- 4 Pulver -->
+              <circle cx="220" cy="210" r="9" fill="#0b1620" stroke="#4ecbff"/>
+              <text x="220" y="214" text-anchor="middle" font-weight="700">4</text>
+              <line x1="178" y1="210" x2="211" y2="210" stroke="#4ecbff" stroke-dasharray="2,2"/>
+
+              <!-- 5 Metallboden -->
+              <circle cx="220" cy="275" r="9" fill="#0b1620" stroke="#4ecbff"/>
+              <text x="220" y="279" text-anchor="middle" font-weight="700">5</text>
+              <line x1="184" y1="275" x2="211" y2="275" stroke="#4ecbff" stroke-dasharray="2,2"/>
+
+              <!-- 6 Zündhütchen -->
+              <circle cx="220" cy="316" r="9" fill="#0b1620" stroke="#4ecbff"/>
+              <text x="220" y="320" text-anchor="middle" font-weight="700">6</text>
+              <line x1="140" y1="316" x2="211" y2="316" stroke="#4ecbff" stroke-dasharray="2,2"/>
+
+              <!-- 7 Hülse -->
+              <circle cx="40" cy="150" r="9" fill="#0b1620" stroke="#4ecbff"/>
+              <text x="40" y="154" text-anchor="middle" font-weight="700">7</text>
+              <line x1="49" y1="150" x2="80" y2="150" stroke="#4ecbff" stroke-dasharray="2,2"/>
+            </g>
+
+            <text x="10" y="368" fill="#7a8f9e" font-family="Share Tech Mono" font-size="8" letter-spacing="1.5">FIG · LÄNGSSCHNITT 12/70 · SCHEMATISCH</text>
+          </svg>
+        </div>
+
+        <ul class="anatomy-legend">
+          <li>
+            <span class="anatomy-num">1</span>
+            <div>
+              <span class="anatomy-name">Sternverschluss (Crimp)</span>
+              <span class="anatomy-desc">Faltet die Hülse zu, hält Schrot im Rohr. Alternativ Rollrand mit Deckelscheibe.</span>
+            </div>
+          </li>
+          <li>
+            <span class="anatomy-num">2</span>
+            <div>
+              <span class="anatomy-name">Schrotladung</span>
+              <span class="anatomy-desc">32–56 g Kugeln aus Blei, Stahl, Wismut oder Wolfram. Definiert das Schussbild.</span>
+            </div>
+          </li>
+          <li>
+            <span class="anatomy-num">3</span>
+            <div>
+              <span class="anatomy-name">Pfropfen (Wad)</span>
+              <span class="anatomy-desc">Trennt Pulver vom Schrot, dichtet die Gase ab, schützt Choke vor Stahlkontakt.</span>
+            </div>
+          </li>
+          <li>
+            <span class="anatomy-num">4</span>
+            <div>
+              <span class="anatomy-name">Treibladung</span>
+              <span class="anatomy-desc">1,5–2,5 g rauchloses Nitrocellulose-Pulver. Erzeugt V₀ von rund 400 m/s.</span>
+            </div>
+          </li>
+          <li>
+            <span class="anatomy-num">5</span>
+            <div>
+              <span class="anatomy-name">Metallboden</span>
+              <span class="anatomy-desc">Messing- oder Stahlkappe, nimmt Kammerdruck auf. Höhe = „hoher/tiefer Boden".</span>
+            </div>
+          </li>
+          <li>
+            <span class="anatomy-num">6</span>
+            <div>
+              <span class="anatomy-name">Zündhütchen</span>
+              <span class="anatomy-desc">Anzündsatz — vom Schlagbolzen gestaucht, entzündet die Treibladung.</span>
+            </div>
+          </li>
+          <li>
+            <span class="anatomy-num">7</span>
+            <div>
+              <span class="anatomy-name">Hülse</span>
+              <span class="anatomy-desc">Kunststoff oder Papier. Länge in mm = wichtiger Teil der Kaliberbezeichnung.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 KALIBER -->
+  <section class="section">
+    <div class="section-label">02 &nbsp;·&nbsp; Kaliber-System</div>
+    <h2 class="section-title">Wie das Kaliber bezeichnet wird</h2>
+    <div class="panel">
+      <p class="body-text" style="margin-top:0;margin-bottom:18px">
+        Das Flintenkaliber ist <strong>keine Millimeter-Angabe</strong>, sondern folgt einer historischen Konvention: Es beschreibt, <strong>wie viele runde Bleikugeln vom Bohrungsdurchmesser aus einem englischen Pfund (453,6 g) gegossen werden können</strong>. Aus einem Pfund Blei ergeben sich 12 Kugeln à ≈ 37,8 g mit einem Durchmesser von 18,4 mm — das ist Kaliber 12. Je <em>kleiner</em> die Kaliberzahl, desto <em>größer</em> die Bohrung. Ausnahme: das kleine <strong>.410</strong> (10,4 mm) — hier ist die Zahl ausnahmsweise der Zoll-Durchmesser.
+      </p>
+
+      <div class="caliber-grid">
+        <div class="caliber-card">
+          <div class="caliber-huge">12</div>
+          <div class="caliber-diameter">Ø 18,4 mm</div>
+          <div class="caliber-name">Zwölf</div>
+          <div class="caliber-note">Universal, mit Abstand am meisten verbreitet</div>
+        </div>
+        <div class="caliber-card">
+          <div class="caliber-huge">16</div>
+          <div class="caliber-diameter">Ø 16,8 mm</div>
+          <div class="caliber-name">Sechzehn</div>
+          <div class="caliber-note">Klassisches Jägerkaliber, leichter zu führen</div>
+        </div>
+        <div class="caliber-card">
+          <div class="caliber-huge">20</div>
+          <div class="caliber-diameter">Ø 15,6 mm</div>
+          <div class="caliber-name">Zwanzig</div>
+          <div class="caliber-note">Leichte Bergwaffen, Damen- und Jugendjagd</div>
+        </div>
+        <div class="caliber-card">
+          <div class="caliber-huge">28</div>
+          <div class="caliber-diameter">Ø 14,0 mm</div>
+          <div class="caliber-name">Achtundzwanzig</div>
+          <div class="caliber-note">Feine Sportflinten, Bekassine, Wachtel</div>
+        </div>
+        <div class="caliber-card">
+          <div class="caliber-huge">.410</div>
+          <div class="caliber-diameter">Ø 10,4 mm</div>
+          <div class="caliber-name">Vier-Zehn</div>
+          <div class="caliber-note">Kleinstes Standardkaliber · Zoll-Bezeichnung</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 HÜLSENLÄNGE -->
+  <section class="section">
+    <div class="section-label">03 &nbsp;·&nbsp; Hülsenlänge</div>
+    <h2 class="section-title">Die zweite Zahl · z. B. 12<span style="color:var(--amber)">/70</span></h2>
+    <div class="panel">
+      <p class="body-text" style="margin-top:0;margin-bottom:6px">
+        Nach dem Kaliber folgt die <strong>Länge der abgefeuerten Hülse in Millimetern</strong>. Sie muss zur Patronenlagerlänge der Waffe passen — <strong>eine längere Hülse darf nie in ein kürzeres Lager</strong> (Druckanstieg!). Umgekehrt ist eine kürzere Patrone in einem längeren Lager problemlos schießbar.
+      </p>
+      <div class="shell-grid">
+        <div class="shell-cell">
+          <div class="shell-viz"><div class="shell-bar" style="height:50%"></div></div>
+          <div class="shell-mm">65<small>mm</small></div>
+          <div class="shell-label">Kurz</div>
+          <div class="shell-use">Ältere Waffen vor ca. 1960</div>
+        </div>
+        <div class="shell-cell">
+          <div class="shell-viz"><div class="shell-bar" style="height:56%"></div></div>
+          <div class="shell-mm">67,5<small>mm</small></div>
+          <div class="shell-label">Kurz-Mag</div>
+          <div class="shell-use">Sport, weniger Rückstoß</div>
+        </div>
+        <div class="shell-cell">
+          <div class="shell-viz"><div class="shell-bar" style="height:70%"></div></div>
+          <div class="shell-mm">70<small>mm</small></div>
+          <div class="shell-label">Standard</div>
+          <div class="shell-use">Universalpatrone, alle modernen Läufe</div>
+        </div>
+        <div class="shell-cell">
+          <div class="shell-viz"><div class="shell-bar" style="height:82%"></div></div>
+          <div class="shell-mm">76<small>mm</small></div>
+          <div class="shell-label">Magnum</div>
+          <div class="shell-use">Wasserwild, große Schrotmenge</div>
+        </div>
+        <div class="shell-cell">
+          <div class="shell-viz"><div class="shell-bar" style="height:100%"></div></div>
+          <div class="shell-mm">89<small>mm</small></div>
+          <div class="shell-label">Super-Mag</div>
+          <div class="shell-use">Turkey- &amp; Gänsejagd, seltene Waffen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 SCHROTGRÖSSEN -->
+  <section class="section">
+    <div class="section-label">04 &nbsp;·&nbsp; Schrotgrößen</div>
+    <h2 class="section-title">Nummerierung &amp; Durchmesser</h2>
+    <div class="panel">
+      <p class="body-text" style="margin-top:0;margin-bottom:16px">
+        Schrote werden in Deutschland und den meisten EU-Ländern nach <strong>Millimetern und einer Nummer</strong> unterschieden (kleine Nummer = großes Korn). In den USA ist <strong>#Nr.</strong> ohne Bezug zu mm üblich. Grobe Faustregel: <strong>Ø [mm] = 5,5 − Nr.</strong> (in EU-Nummerierung, Näherung).
+      </p>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Nr. (EU)</th>
+              <th>Ø</th>
+              <th>Korn</th>
+              <th>Anzahl**</th>
+              <th>V₀ → V₃₅***</th>
+              <th>Wirkdistanz*</th>
+              <th>Typische Verwendung</th>
+              <th>Beispielwild</th>
+            </tr>
+          </thead>
+          <tbody id="shotSizes"></tbody>
+        </table>
+      </div>
+      <p class="body-text" style="margin-top:14px;font-size:12px;color:var(--steel)">
+        * Praktische Wirkdistanz für Blei aus Standardlast (32 g, Halbchoke). Faustregel: <strong>Wirkdistanz [m] ≈ 10 × Ø [mm]</strong>. Bei Stahl ~15 % weniger, bei Wolfram ~15 % mehr. Reichweite endet dort, wo die Schrote nicht mehr genug Energie tragen, um sicher zu töten (~2 J je kg Wildkörpergewicht).<br>
+        ** Ungefähre Kornzahl pro 32 g Bleiladung. Bei Stahl (Dichte 7,8) rund 45 % mehr Kugeln pro Gramm, bei Wolfram (Dichte 18) rund 35 % weniger.<br>
+        *** Anfangsgeschwindigkeit V₀ (Mündung) → Restgeschwindigkeit V₃₅ (Ziel bei 35 m). Größere Kugeln behalten mehr Energie — der ballistische Koeffizient wächst mit dem Durchmesser. Stahl verliert schneller, Wolfram deutlich langsamer.
+      </p>
+    </div>
+  </section>
+
+  <!-- 05 MATERIAL -->
+  <section class="section">
+    <div class="section-label">05 &nbsp;·&nbsp; Schrotmaterialien</div>
+    <h2 class="section-title">Blei, Stahl, Wismut, Wolfram</h2>
+    <div class="material-grid" id="materials"></div>
+  </section>
+
+  <!-- 06 LADUNGSTYPEN -->
+  <section class="section">
+    <div class="section-label">06 &nbsp;·&nbsp; Ladungsklassen</div>
+    <h2 class="section-title">Sport, Standard, Magnum, High Velocity</h2>
+    <div class="load-grid" id="loads"></div>
+  </section>
+
+  <!-- 07 SPEZIAL -->
+  <section class="section">
+    <div class="section-label">07 &nbsp;·&nbsp; Sondermunition</div>
+    <h2 class="section-title">Wenn Vogelschrot nicht reicht</h2>
+    <div class="special-grid">
+
+      <div class="special-card">
+        <div class="special-icon photo"><img src="img/postenschrot.jpg" alt="Postenschrot" loading="lazy"></div>
+        <h3 class="special-name">Postenschrot</h3>
+        <div class="special-tag">Buckshot · SG · 5,5 – 8,6 mm</div>
+        <p class="special-desc">Grobe Bleikugeln, 6–12 Stück pro Patrone. Nur wenige, energiereiche Treffer. Klassiker der Sauen-Drückjagd auf kurze Distanz (bis 25 m). In Deutschland auf Schalenwild rechtlich eingeschränkt.</p>
+      </div>
+
+      <div class="special-card">
+        <div class="special-icon photo"><img src="img/slug-brenneke.jpg" alt="Brenneke Flintenlaufgeschoss" loading="lazy"></div>
+        <h3 class="special-name">Flintenlaufgeschoss</h3>
+        <div class="special-tag">Slug · 28 – 32 g · Einzelgeschoss</div>
+        <p class="special-desc"><strong style="color:var(--cyan)">Brenneke</strong>: Vollblei mit Rippen und angebundenem Filzpfropfen — deutscher Standard. <strong style="color:var(--cyan)">Foster</strong>: hohl, Schwerpunkt vorn („American Slug"). <strong style="color:var(--cyan)">Sabot</strong>: unterkalibriges Geschoss im Treibkäfig — nur für gezogene Läufe.</p>
+      </div>
+
+      <div class="special-card">
+        <div class="special-icon photo"><img src="img/signalmunition.jpg" alt="Signal- und Reizmunition" loading="lazy"></div>
+        <h3 class="special-name">Reiz- &amp; Signalmunition</h3>
+        <div class="special-tag">Rubber · Cracker · Blank</div>
+        <p class="special-desc">Gummigeschosse, Knallpatronen und Blitzknall — für Wildvergrämung, Hundeausbildung, Signalzwecke. Keine tödliche Wirkung, aber jagd- und waffenrechtlich sensibel. Nicht im Jagdeinsatz auf Wild.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 08 FLINTENLAUFGESCHOSS BAUFORMEN -->
+  <section class="section">
+    <div class="section-label">08 &nbsp;·&nbsp; Flintenlaufgeschoss</div>
+    <h2 class="section-title">Bauformen · Brenneke, Foster, Sabot</h2>
+    <div class="panel">
+      <p class="body-text" style="margin-top:0;margin-bottom:18px">
+        Ein <strong>Flintenlaufgeschoss</strong> (engl. <em>Slug</em>) ist ein Einzelprojektil im Flintenkaliber — an Stelle einer Schrotladung. Drei Bauformen dominieren: das deutsche <strong>Brenneke</strong>-System mit angebundenem Filzpfropfen, der amerikanische <strong>Foster</strong>-Slug mit hohler Basis, und der moderne <strong>Sabot</strong>-Slug mit <strong>Treibk&auml;fig</strong> — einer zweigeteilten Kunststoffh&uuml;lle, die ein unterkalibriges Innengeschoss f&uuml;hrt und nach der M&uuml;ndung abf&auml;llt.
+      </p>
+
+      <div class="slug-grid">
+
+        <!-- BRENNEKE -->
+        <div class="slug-card">
+          <div class="slug-diagram">
+            <svg viewBox="0 0 200 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Brenneke Flintenlaufgeschoss">
+              <defs>
+                <pattern id="slgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M20 0L0 0 0 20" fill="none" stroke="#14364c" stroke-width="0.3"/>
+                </pattern>
+                <linearGradient id="sllead" x1="0" x2="1">
+                  <stop offset="0" stop-color="#6a7a88"/>
+                  <stop offset="0.5" stop-color="#94a4b3"/>
+                  <stop offset="1" stop-color="#5a6a75"/>
+                </linearGradient>
+                <linearGradient id="slfelt" x1="0" x2="1">
+                  <stop offset="0" stop-color="#5a4a3a"/>
+                  <stop offset="0.5" stop-color="#8a6a4a"/>
+                  <stop offset="1" stop-color="#4a3820"/>
+                </linearGradient>
+                <linearGradient id="slcage" x1="0" x2="1">
+                  <stop offset="0" stop-color="#5a4a2a"/>
+                  <stop offset="0.5" stop-color="#8a7050"/>
+                  <stop offset="1" stop-color="#4a3820"/>
+                </linearGradient>
+              </defs>
+              <rect width="200" height="340" fill="url(#slgrid)" opacity="0.4"/>
+              <g stroke="#4ecbff" stroke-width="0.8" fill="none" opacity="0.55">
+                <path d="M4 4 L12 4 M4 4 L4 12"/>
+                <path d="M196 4 L188 4 M196 4 L196 12"/>
+                <path d="M4 336 L12 336 M4 336 L4 328"/>
+                <path d="M196 336 L188 336 M196 336 L196 328"/>
+              </g>
+              <line x1="100" y1="30" x2="100" y2="315" stroke="#4ecbff" stroke-width="0.3" stroke-dasharray="2,3" opacity="0.45"/>
+
+              <path d="M65 70 Q 100 30 135 70 L 135 82 L 65 82 Z" fill="url(#sllead)" stroke="#4ecbff" stroke-width="0.8"/>
+              <rect x="65" y="82" width="70" height="118" fill="url(#sllead)" stroke="#4ecbff" stroke-width="0.8"/>
+              <g stroke="#2a3540" stroke-width="1.6" fill="none">
+                <line x1="65" y1="94" x2="135" y2="99"/>
+                <line x1="65" y1="109" x2="135" y2="114"/>
+                <line x1="65" y1="124" x2="135" y2="129"/>
+                <line x1="65" y1="139" x2="135" y2="144"/>
+                <line x1="65" y1="154" x2="135" y2="159"/>
+                <line x1="65" y1="169" x2="135" y2="174"/>
+                <line x1="65" y1="184" x2="135" y2="189"/>
+              </g>
+              <rect x="60" y="200" width="80" height="7" fill="#3a4a58" stroke="#4ecbff" stroke-width="0.6"/>
+              <line x1="100" y1="200" x2="100" y2="285" stroke="#3a4a58" stroke-width="4"/>
+              <g stroke="#05090d" stroke-width="0.7">
+                <line x1="96" y1="220" x2="104" y2="220"/>
+                <line x1="96" y1="230" x2="104" y2="230"/>
+                <line x1="96" y1="240" x2="104" y2="240"/>
+                <line x1="96" y1="250" x2="104" y2="250"/>
+                <line x1="96" y1="260" x2="104" y2="260"/>
+                <line x1="96" y1="270" x2="104" y2="270"/>
+              </g>
+              <rect x="70" y="207" width="60" height="80" fill="url(#slfelt)" stroke="#4ecbff" stroke-width="0.8"/>
+              <g stroke="#3a2818" stroke-width="0.4" opacity="0.55">
+                <line x1="72" y1="215" x2="128" y2="215"/>
+                <line x1="72" y1="225" x2="128" y2="225"/>
+                <line x1="72" y1="235" x2="128" y2="235"/>
+                <line x1="72" y1="245" x2="128" y2="245"/>
+                <line x1="72" y1="255" x2="128" y2="255"/>
+                <line x1="72" y1="265" x2="128" y2="265"/>
+                <line x1="72" y1="275" x2="128" y2="275"/>
+              </g>
+              <circle cx="100" cy="290" r="7" fill="#5a6a75" stroke="#3a4a58" stroke-width="0.7"/>
+              <line x1="93" y1="290" x2="107" y2="290" stroke="#05090d" stroke-width="1.2"/>
+
+              <g font-family="Share Tech Mono" font-size="10" fill="#4ecbff" letter-spacing="1">
+                <circle cx="172" cy="50" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="172" y="54" text-anchor="middle" font-weight="700">1</text>
+                <line x1="164" y1="50" x2="112" y2="50" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <circle cx="172" cy="140" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="172" y="144" text-anchor="middle" font-weight="700">2</text>
+                <line x1="164" y1="140" x2="135" y2="140" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <circle cx="172" cy="240" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="172" y="244" text-anchor="middle" font-weight="700">3</text>
+                <line x1="164" y1="240" x2="105" y2="240" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <circle cx="28" cy="245" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="28" y="249" text-anchor="middle" font-weight="700">4</text>
+                <line x1="36" y1="245" x2="70" y2="245" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </g>
+              <text x="100" y="320" fill="#7a8f9e" font-family="Share Tech Mono" font-size="9" text-anchor="middle" letter-spacing="1.5">SCHNITTBILD</text>
+            </svg>
+          </div>
+          <div class="slug-title">Brenneke</div>
+          <div class="slug-subtitle">Classic &middot; 28&ndash;32 g &middot; seit 1898</div>
+          <ul class="slug-legend">
+            <li><span class="num">1</span><div><span class="name">Bleikopf</span><span class="desc">Massive Bleispitze mit aerodynamischer Rundung &mdash; Schwerpunkt vorn.</span></div></li>
+            <li><span class="num">2</span><div><span class="name">Rippen</span><span class="desc">Angeschr&auml;gt &mdash; verformen sich im Choke, geben leichten Rotationsimpuls.</span></div></li>
+            <li><span class="num">3</span><div><span class="name">Zentralschraube</span><span class="desc">Verbindet Bleik&ouml;rper und Pfropfen fest zu einer Einheit.</span></div></li>
+            <li><span class="num">4</span><div><span class="name">Filzpfropfen</span><span class="desc">Bleibt am Geschoss, wirkt als Leitwerk (&bdquo;Ruder&ldquo;) &mdash; stabilisiert die Flugbahn.</span></div></li>
+          </ul>
+        </div>
+
+        <!-- FOSTER -->
+        <div class="slug-card">
+          <div class="slug-diagram">
+            <svg viewBox="0 0 200 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Foster Slug">
+              <rect width="200" height="340" fill="url(#slgrid)" opacity="0.4"/>
+              <g stroke="#4ecbff" stroke-width="0.8" fill="none" opacity="0.55">
+                <path d="M4 4 L12 4 M4 4 L4 12"/>
+                <path d="M196 4 L188 4 M196 4 L196 12"/>
+                <path d="M4 336 L12 336 M4 336 L4 328"/>
+                <path d="M196 336 L188 336 M196 336 L196 328"/>
+              </g>
+              <line x1="100" y1="30" x2="100" y2="315" stroke="#4ecbff" stroke-width="0.3" stroke-dasharray="2,3" opacity="0.45"/>
+
+              <path d="M55 100 Q 100 30 145 100 L 145 112 L 55 112 Z" fill="url(#sllead)" stroke="#4ecbff" stroke-width="0.8"/>
+              <rect x="55" y="112" width="90" height="98" fill="url(#sllead)" stroke="#4ecbff" stroke-width="0.8"/>
+              <g stroke="#2a3540" stroke-width="1.4" fill="none">
+                <line x1="68" y1="112" x2="68" y2="210"/>
+                <line x1="82" y1="112" x2="82" y2="210"/>
+                <line x1="96" y1="112" x2="96" y2="210"/>
+                <line x1="110" y1="112" x2="110" y2="210"/>
+                <line x1="124" y1="112" x2="124" y2="210"/>
+                <line x1="138" y1="112" x2="138" y2="210"/>
+              </g>
+              <path d="M60 210 L 60 160 L 75 148 L 125 148 L 140 160 L 140 210 Z" fill="#05090d" stroke="#4ecbff" stroke-width="0.6"/>
+              <text x="100" y="185" fill="#4ecbff" font-family="Share Tech Mono" font-size="8" text-anchor="middle" opacity="0.8" letter-spacing="1.5">HOHL</text>
+              <path d="M55 215 L 145 215 L 145 265 L 135 282 L 65 282 L 55 265 Z" fill="#2a3540" stroke="#4ecbff" stroke-width="0.7"/>
+              <path d="M55 230 L 145 230" stroke="#4ecbff" stroke-width="0.3" opacity="0.5"/>
+              <path d="M55 245 L 145 245" stroke="#4ecbff" stroke-width="0.3" opacity="0.3"/>
+
+              <g font-family="Share Tech Mono" font-size="10" fill="#4ecbff" letter-spacing="1">
+                <circle cx="172" cy="60" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="172" y="64" text-anchor="middle" font-weight="700">1</text>
+                <line x1="164" y1="60" x2="115" y2="60" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <circle cx="172" cy="160" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="172" y="164" text-anchor="middle" font-weight="700">2</text>
+                <line x1="164" y1="160" x2="138" y2="160" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <circle cx="28" cy="180" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="28" y="184" text-anchor="middle" font-weight="700">3</text>
+                <line x1="36" y1="180" x2="78" y2="180" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <circle cx="28" cy="250" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="28" y="254" text-anchor="middle" font-weight="700">4</text>
+                <line x1="36" y1="250" x2="60" y2="250" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </g>
+              <text x="100" y="320" fill="#7a8f9e" font-family="Share Tech Mono" font-size="9" text-anchor="middle" letter-spacing="1.5">SCHNITTBILD</text>
+            </svg>
+          </div>
+          <div class="slug-title">Foster</div>
+          <div class="slug-subtitle">American Slug &middot; 28&ndash;36 g &middot; seit 1931</div>
+          <ul class="slug-legend">
+            <li><span class="num">1</span><div><span class="name">Voller Kopf</span><span class="desc">Schwerpunkt weit vorn &mdash; stabilisiert wie ein Federball (Weight-forward).</span></div></li>
+            <li><span class="num">2</span><div><span class="name">Rifling-Rippen</span><span class="desc">Nur zur Choke-Entlastung &mdash; geben keinen echten Drall.</span></div></li>
+            <li><span class="num">3</span><div><span class="name">Hohler Boden</span><span class="desc">Verlagert die Masse nach vorn und l&auml;sst Blei am Choke expandieren.</span></div></li>
+            <li><span class="num">4</span><div><span class="name">Pfropfen</span><span class="desc">Separater Kunststoff-Wad &mdash; trennt sich an der M&uuml;ndung ab.</span></div></li>
+          </ul>
+        </div>
+
+        <!-- SABOT -->
+        <div class="slug-card">
+          <div class="slug-diagram">
+            <svg viewBox="0 0 200 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sabot Slug mit Treibkäfig">
+              <rect width="200" height="340" fill="url(#slgrid)" opacity="0.4"/>
+              <g stroke="#4ecbff" stroke-width="0.8" fill="none" opacity="0.55">
+                <path d="M4 4 L12 4 M4 4 L4 12"/>
+                <path d="M196 4 L188 4 M196 4 L196 12"/>
+                <path d="M4 336 L12 336 M4 336 L4 328"/>
+                <path d="M196 336 L188 336 M196 336 L196 328"/>
+              </g>
+              <line x1="100" y1="30" x2="100" y2="315" stroke="#4ecbff" stroke-width="0.3" stroke-dasharray="2,3" opacity="0.45"/>
+
+              <!-- Left cage half -->
+              <path d="M55 80 L 50 92 L 45 108 L 45 200 L 50 214 L 60 224 L 92 224 L 92 80 Z" fill="url(#slcage)" stroke="#4ecbff" stroke-width="0.9"/>
+              <path d="M60 88 L 55 98 L 52 110 L 52 198 L 57 210 L 85 218 L 85 88 Z" fill="none" stroke="#3a2818" stroke-width="0.5" opacity="0.7"/>
+              <!-- Right cage half -->
+              <path d="M145 80 L 150 92 L 155 108 L 155 200 L 150 214 L 140 224 L 108 224 L 108 80 Z" fill="url(#slcage)" stroke="#4ecbff" stroke-width="0.9"/>
+              <path d="M140 88 L 145 98 L 148 110 L 148 198 L 143 210 L 115 218 L 115 88 Z" fill="none" stroke="#3a2818" stroke-width="0.5" opacity="0.7"/>
+
+              <!-- Inner sub-caliber projectile -->
+              <path d="M92 108 Q 100 60 108 108 L 108 210 L 92 210 Z" fill="url(#sllead)" stroke="#4ecbff" stroke-width="0.7"/>
+              <path d="M97 72 L 103 72 L 100 84 Z" fill="#05090d"/>
+              <rect x="92" y="140" width="16" height="9" fill="#c4823a" stroke="#4ecbff" stroke-width="0.4"/>
+              <rect x="92" y="180" width="16" height="9" fill="#c4823a" stroke="#4ecbff" stroke-width="0.4"/>
+
+              <!-- Trennfuge arrows -->
+              <g stroke="#4ecbff" stroke-width="0.7" fill="none" opacity="0.75">
+                <path d="M92 128 L 85 122 M92 128 L 85 134"/>
+                <path d="M108 128 L 115 122 M108 128 L 115 134"/>
+              </g>
+
+              <!-- Gas seal base -->
+              <path d="M45 224 L 155 224 L 155 260 L 145 278 L 55 278 L 45 260 Z" fill="#2a3540" stroke="#4ecbff" stroke-width="0.7"/>
+              <path d="M45 238 L 155 238" stroke="#4ecbff" stroke-width="0.3" opacity="0.5"/>
+              <path d="M45 252 L 155 252" stroke="#4ecbff" stroke-width="0.3" opacity="0.3"/>
+
+              <g font-family="Share Tech Mono" font-size="10" fill="#4ecbff" letter-spacing="1">
+                <circle cx="172" cy="140" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="172" y="144" text-anchor="middle" font-weight="700">1</text>
+                <line x1="164" y1="140" x2="112" y2="140" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <circle cx="28" cy="100" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="28" y="104" text-anchor="middle" font-weight="700">2</text>
+                <line x1="36" y1="100" x2="47" y2="100" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <circle cx="28" cy="180" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="28" y="184" text-anchor="middle" font-weight="700">3</text>
+                <line x1="36" y1="180" x2="92" y2="180" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <circle cx="172" cy="250" r="8" fill="#0b1620" stroke="#4ecbff"/>
+                <text x="172" y="254" text-anchor="middle" font-weight="700">4</text>
+                <line x1="164" y1="250" x2="155" y2="250" stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </g>
+              <text x="100" y="320" fill="#7a8f9e" font-family="Share Tech Mono" font-size="9" text-anchor="middle" letter-spacing="1.5">SCHNITTBILD</text>
+            </svg>
+          </div>
+          <div class="slug-title">Sabot</div>
+          <div class="slug-subtitle">Treibk&auml;fig &middot; 20&ndash;28 g &middot; nur gezogene L&auml;ufe</div>
+          <ul class="slug-legend">
+            <li><span class="num">1</span><div><span class="name">Innengeschoss</span><span class="desc">Unterkalibriges Blei- oder Mantelgeschoss mit Kupferring &mdash; &oslash; &asymp; 10 mm.</span></div></li>
+            <li><span class="num">2</span><div><span class="name">Treibk&auml;fig (Sabot)</span><span class="desc">Zweigeteilte Kunststoffh&uuml;lle, f&uuml;hrt das Geschoss zentriert durch den Lauf.</span></div></li>
+            <li><span class="num">3</span><div><span class="name">Trennfuge</span><span class="desc">K&auml;fig platzt nach der M&uuml;ndung durch Luftwiderstand auf &mdash; Geschoss fliegt allein weiter.</span></div></li>
+            <li><span class="num">4</span><div><span class="name">Gasabdichtung</span><span class="desc">Boden-Wad dichtet die Treibgase ab und st&ouml;&szlig;t den K&auml;fig an.</span></div></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <p class="body-text" style="margin-top:0;margin-bottom:0;font-size:14px">
+        Der <strong>K&auml;fig</strong> (frz. <em>sabot</em> = &bdquo;Schuh&ldquo;) stammt aus der milit&auml;rischen Panzerbrechmunition (APDS). Er erm&ouml;glicht, dass ein schmales, aerodynamisch g&uuml;nstigeres Geschoss mit voller Kaliber-Ladung beschleunigt wird &mdash; nach der M&uuml;ndung f&auml;llt der K&auml;fig ab, das reine Geschoss fliegt allein weiter. In Flintenkaliber 12 misst der K&auml;fig au&szlig;en &asymp; 18 mm, das Innengeschoss nur &asymp; 10 mm.
+        <br><br>
+        <strong>Reichweiten:</strong> Brenneke &amp; Foster &asymp; 50 m aus glattem Lauf &middot; Sabot bis 100 m aus gezogenem Lauf.
+      </p>
+    </div>
+  </section>
+
+  <!-- 09 BEISPIELE -->
+  <section class="section">
+    <div class="section-label">09 &nbsp;·&nbsp; Praxis-Beispiele</div>
+    <h2 class="section-title">Wie Patronen bezeichnet werden</h2>
+    <div class="panel">
+      <div class="examples">
+        <div class="ex-row">
+          <div class="ex-code">12/70<br>32g · 3.0mm</div>
+          <div class="ex-name">Standard-Fasanpatrone
+            <small>Blei · Nr. 5 · Halbchoke</small>
+          </div>
+          <div class="ex-use">Niederwild · Universal</div>
+        </div>
+        <div class="ex-row">
+          <div class="ex-code">12/70<br>24g · 2.4mm</div>
+          <div class="ex-name">Trap-Sportlast
+            <small>Blei · Nr. 7 · High-Velocity 415 m/s</small>
+          </div>
+          <div class="ex-use">Sport · Wurftaube</div>
+        </div>
+        <div class="ex-row">
+          <div class="ex-code">12/76<br>39g · 3.5mm</div>
+          <div class="ex-name">Stahlschrot Wasserwild-Magnum
+            <small>Stahl · Nr. 3 · IM-Choke tauglich</small>
+          </div>
+          <div class="ex-use">Ente · Gans</div>
+        </div>
+        <div class="ex-row">
+          <div class="ex-code">12/70<br>28g Slug</div>
+          <div class="ex-name">Brenneke Classic
+            <small>Einzelgeschoss · Zylinder-Choke</small>
+          </div>
+          <div class="ex-use">Sau · Nachsuche</div>
+        </div>
+        <div class="ex-row">
+          <div class="ex-code">12/70<br>36g · 8.6mm</div>
+          <div class="ex-name">Postenschrot 00 Buck
+            <small>9 Kugeln · CYL/IC</small>
+          </div>
+          <div class="ex-use">Drückjagd · Sau</div>
+        </div>
+        <div class="ex-row">
+          <div class="ex-code">20/70<br>28g · 2.75mm</div>
+          <div class="ex-name">Leichte Niederwild-Ladung
+            <small>Blei · Nr. 6 · Bergjagd-Kaliber</small>
+          </div>
+          <div class="ex-use">Rebhuhn · Wachtel</div>
+        </div>
+        <div class="ex-row">
+          <div class="ex-code">12/76<br>52g · 4.5mm</div>
+          <div class="ex-name">Wolfram Turkey Load
+            <small>Wolfram TSS · Nr. 6 (Blei-Äq. #4) · XF-Choke</small>
+          </div>
+          <div class="ex-use">Turkey · Präzision</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>ORD·AMM·03 &nbsp;/&nbsp; <span>Rev 1.0</span></div>
+    <div>Klassifikation &nbsp;·&nbsp; <span>Jäger-Intern</span></div>
+    <div>End of Document</div>
+  </footer>
+
+</div>
+
+<script>
+  /* ---------- Shot sizes ---------- */
+  const shotSizes = [
+    { nr: '12', mm: '1,25', reich: '12–15', anz: '≈ 2760', v: '400 → 140', use: 'Sport, sehr feine Ziele',        wild: 'Wachtel · Skeet' },
+    { nr: '10', mm: '1,50', reich: '15–18', anz: '≈ 1600', v: '400 → 160', use: 'Feiner Sportschrot',              wild: 'Bekassine · Skeet' },
+    { nr: '9',  mm: '2,00', reich: '18–22', anz: '≈ 675',  v: '400 → 185', use: 'Sportsschrot Skeet',              wild: 'Wurftaube · Wachtel' },
+    { nr: '8',  mm: '2,25', reich: '22–25', anz: '≈ 475',  v: '400 → 200', use: 'Skeet, feines Federwild',         wild: 'Wurftaube · Waldschnepfe' },
+    { nr: '7',  mm: '2,50', reich: '25–28', anz: '≈ 345',  v: '400 → 215', use: 'Trap, Niederwild Nah',            wild: 'Kaninchen · Rebhuhn' },
+    { nr: '6',  mm: '2,75', reich: '28–32', anz: '≈ 260',  v: '400 → 230', use: 'Universal Niederwild',            wild: 'Fasan · Rebhuhn' },
+    { nr: '5',  mm: '3,00', reich: '30–35', anz: '≈ 200',  v: '400 → 245', use: 'Fasan, Ente Standard',            wild: 'Fasan · Ente · Krähe' },
+    { nr: '4',  mm: '3,25', reich: '32–38', anz: '≈ 155',  v: '400 → 255', use: 'Ente, kleinere Gans',             wild: 'Ente · Fuchs Nah' },
+    { nr: '3',  mm: '3,50', reich: '35–40', anz: '≈ 125',  v: '400 → 270', use: 'Ente Distanz, Stahl-Wasserwild',  wild: 'Ente · Gans' },
+    { nr: '2',  mm: '3,75', reich: '38–42', anz: '≈ 100',  v: '400 → 280', use: 'Fuchs, große Ente',               wild: 'Fuchs · Gans' },
+    { nr: '1',  mm: '4,00', reich: '40–45', anz: '≈ 85',   v: '400 → 290', use: 'Gans, Fuchs Distanz',             wild: 'Gans · Fuchs weit' },
+    { nr: 'BB', mm: '4,50', reich: '45–50', anz: '≈ 60',   v: '400 → 305', use: 'Gans, Wolf (dort erlaubt)',       wild: 'Große Gans · Kojote' }
+  ];
+
+  const tbody = document.getElementById('shotSizes');
+  shotSizes.forEach(s => {
+    const mmNum = parseFloat(s.mm.replace(',','.'));
+    // pellet visual size proportional to mm, capped
+    const px = Math.min(Math.max(mmNum * 3.2, 5), 18);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="nr">${s.nr}</td>
+      <td class="mm">${s.mm} mm</td>
+      <td><span class="pellet-viz" style="width:${px}px;height:${px}px"></span></td>
+      <td class="mm" style="color:var(--cyan)">${s.anz}</td>
+      <td class="mm" style="color:var(--chrome)">${s.v} <span style="color:var(--steel);font-size:10px">m/s</span></td>
+      <td class="mm">${s.reich} m</td>
+      <td>${s.use}</td>
+      <td class="why">${s.wild}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  /* ---------- Materials ---------- */
+  const materials = [
+    {
+      name: 'Blei', kurz: 'Pb',
+      dichte: '11,3 g/cm³',
+      haerte: 'weich (leicht verformbar)',
+      choke: 'kompatibel bis Extra Full',
+      recht: 'am Wasser verboten (DE, ab 2023 EU-weit)',
+      pro: 'Beste Ballistik, hohe Dichte, günstig, verzeiht enge Chokes.',
+      con: 'Gewässerverbot, im Wildbret Toxizität, Verformung an Choke = kleinere Streuung.',
+      warn: false
+    },
+    {
+      name: 'Stahl', kurz: 'Fe',
+      dichte: '7,8 g/cm³',
+      haerte: 'hart (formstabil)',
+      choke: 'max. Halbchoke oder Stahl-Freigabe nötig',
+      recht: 'Standard-Ersatz für Blei am Wasser',
+      pro: 'Günstig, umweltverträglich, sehr formstabil.',
+      con: '31 % weniger Dichte → +1 Nr. wählen; hart → Chokegefahr; Rostet nach Nassschuss.',
+      warn: true
+    },
+    {
+      name: 'Wismut', kurz: 'Bi',
+      dichte: '9,6 g/cm³',
+      haerte: 'spröde, aber weich genug',
+      choke: 'kompatibel mit allen Chokes',
+      recht: 'Am Wasser zulässig',
+      pro: 'Blei-nahe Ballistik ohne Toxizität, choke-schonend, für alte Damaskusläufe geeignet.',
+      con: 'Teuer, kann bei Anprall zersplittern, weniger tief-durchschlagend.',
+      warn: false
+    },
+    {
+      name: 'Wolfram', kurz: 'W',
+      dichte: '12 – 18 g/cm³',
+      haerte: 'sehr hart, Matrix-gebunden',
+      choke: 'meist choke-verträglich (Matrix)',
+      recht: 'Am Wasser zulässig',
+      pro: 'Höchste Dichte → kleinere Nummer bei gleicher Energie, extreme Reichweite.',
+      con: 'Sehr teuer (Turkey/HEVI-Shot), hoher Preis pro Schuss, Overkill für Standardjagd.',
+      warn: false
+    }
+  ];
+
+  const matGrid = document.getElementById('materials');
+  materials.forEach(m => {
+    const card = document.createElement('article');
+    card.className = 'material-card';
+    const photoMap = {
+      'Blei': 'img/schrot-blei.jpg',
+      'Stahl': 'img/schrot-stahl.jpg',
+      'Wismut': 'img/schrot-wismut.jpg',
+      'Wolfram': 'img/schrot-wolfram.jpg'
+    };
+    const photoSrc = photoMap[m.name];
+    card.innerHTML = `
+      ${photoSrc ? `<div class="material-photo"><img src="${photoSrc}" alt="${m.name} Schrot" loading="lazy"></div>` : ''}
+      <div class="material-head">
+        <h3 class="material-name">${m.name} <span style="color:var(--steel);font-size:12px;font-weight:400">· ${m.kurz}</span></h3>
+        <span class="material-density">${m.dichte}</span>
+      </div>
+      <div class="material-props">
+        <div class="prop-row"><span class="prop-key">Härte</span><span class="prop-val">${m.haerte}</span></div>
+        <div class="prop-row"><span class="prop-key">Choke</span><span class="prop-val ${m.warn ? 'warn' : ''}">${m.choke}</span></div>
+        <div class="prop-row"><span class="prop-key">Rechtlich</span><span class="prop-val">${m.recht}</span></div>
+      </div>
+      <div class="material-use"><small>Vorteil</small>${m.pro}</div>
+      <div class="material-use" style="margin-top:8px"><small>Nachteil</small>${m.con}</div>
+    `;
+    matGrid.appendChild(card);
+  });
+
+  /* ---------- Loads ---------- */
+  const loads = [
+    { title: 'Sport-Last', v0: '380–410', gram: '24–28', desc: 'Kleine Schrotgewichte für Skeet, Trap, Parcours. Weniger Rückstoß, viele Schuss pro Tag.', ex: 'z. B. 12/70 · 24 g · Nr. 7½ · 400 m/s' },
+    { title: 'Standard-Jagd', v0: '380–400', gram: '32–36', desc: 'Universalpatrone für Niederwild. Ausgewogenes Verhältnis Reichweite / Rückstoß / Wildwirkung.', ex: 'z. B. 12/70 · 34 g · Nr. 6 · 390 m/s' },
+    { title: 'Magnum', v0: '380–420', gram: '40–52', desc: 'Erhöhtes Schrotgewicht in längerer Hülse (76 mm). Mehr Deckung auf Distanz, spürbarer Rückstoß.', ex: 'z. B. 12/76 · 46 g · Nr. 4 · 405 m/s' },
+    { title: 'High Velocity', v0: '420–450', gram: '32–36', desc: 'Standard-Schrotmenge, aber deutlich höhere Anfangsgeschwindigkeit. Kürzere Vorhaltezeit, härterer Rückstoß.', ex: 'z. B. 12/70 · 34 g · Nr. 5 · 430 m/s' }
+  ];
+
+  const loadGrid = document.getElementById('loads');
+  loads.forEach(l => {
+    const c = document.createElement('article');
+    c.className = 'load-card';
+    c.innerHTML = `
+      <h3 class="load-title">${l.title}</h3>
+      <div class="load-metrics">
+        <div class="load-metric">
+          <span class="load-metric-label">V₀</span>
+          <div class="load-metric-val">${l.v0}<small> m/s</small></div>
+        </div>
+        <div class="load-metric">
+          <span class="load-metric-label">Schrot</span>
+          <div class="load-metric-val">${l.gram}<small> g</small></div>
+        </div>
+      </div>
+      <p class="load-desc">${l.desc}</p>
+      <div class="load-example">${l.ex}</div>
+    `;
+    loadGrid.appendChild(c);
+  });
+</script>

@@ -1,0 +1,1140 @@
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Choke Matrix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/orbitron/v35/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1nyKS6xpg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/orbitron/v35/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1ny_Cmxpg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/orbitron/v35/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1nysimxpg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pasEcOs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDIxapCSOBg7S-QT7q4A.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pb0EMOs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pbYF8Os.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pa8FsOs.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Share Tech Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sharetechmono/v16/J7aHnp1uDWRBEqV98dVQztYldFc7pA.ttf) format('truetype');
+}
+
+</style>
+
+<style>
+  :root {
+    --void: #05090d;
+    --panel: #0b1620;
+    --panel-2: #0f2030;
+    --grid: #1a3548;
+    --edge: #2a5a7a;
+    --edge-2: #14364c;
+    --cyan: #4ecbff;
+    --cyan-glow: #00d9ff;
+    --amber: #ffb84d;
+    --steel: #7a8f9e;
+    --chrome: #dceff9;
+    --danger: #ff5563;
+    --success: #7cffb0;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @media print {
+    body {
+      background: var(--void) !important;
+    }
+    .dot { animation: none !important; }
+    .section { break-inside: avoid; page-break-inside: avoid; }
+    .choke-card, .pattern-cell, .pc-panel { break-inside: avoid; page-break-inside: avoid; }
+    .hud-header { break-after: avoid; }
+    .section-title { break-after: avoid; }
+    .container { padding: 12px !important; max-width: none !important; }
+  }
+
+  body {
+    background: var(--void);
+    color: var(--chrome);
+    font-family: 'Rajdhani', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    min-height: 100vh;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(78,203,255,0.025) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(78,203,255,0.08), transparent 70%),
+      radial-gradient(ellipse 700px 400px at 90% 110%, rgba(0,217,255,0.05), transparent 70%);
+  }
+
+  ::selection { background: var(--cyan); color: var(--void); }
+
+  .container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 28px 24px 48px;
+  }
+
+  /* Back to index */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px;
+    margin-bottom: 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--edge);
+    background: rgba(11,22,32,0.7);
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .back-link:hover, .back-link:focus-visible {
+    border-color: var(--cyan);
+    background: rgba(78,203,255,0.08);
+    color: var(--cyan-glow);
+    outline: none;
+  }
+  .back-link .arrow {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  /* ---------- HEADER ---------- */
+  .hud-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 28px;
+    border: 1px solid var(--edge);
+    background:
+      linear-gradient(90deg, var(--panel) 0%, var(--panel-2) 60%, var(--panel) 100%);
+    padding: 18px 26px;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+    box-shadow: inset 0 0 40px rgba(78,203,255,0.06);
+  }
+
+  .badge {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    padding: 6px 12px;
+    border: 1px solid var(--cyan);
+    background: rgba(78,203,255,0.06);
+    text-shadow: 0 0 8px rgba(78,203,255,0.4);
+  }
+
+  .hud-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 3vw, 30px);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--chrome);
+    margin: 0 0 4px;
+    text-shadow: 0 0 14px rgba(78,203,255,0.35);
+    text-wrap: balance;
+  }
+
+  .hud-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--steel);
+    text-transform: uppercase;
+  }
+
+  .status {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--cyan);
+    white-space: nowrap;
+  }
+
+  .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--cyan-glow);
+    box-shadow: 0 0 10px var(--cyan-glow), 0 0 4px var(--cyan-glow);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dot { animation: none; }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  .section { margin-top: 40px; }
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-label::before {
+    content: '';
+    width: 22px; height: 1px;
+    background: var(--cyan);
+    box-shadow: 0 0 6px var(--cyan-glow);
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--edge), transparent);
+  }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(18px, 2.2vw, 24px);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 22px;
+    color: var(--chrome);
+    text-wrap: balance;
+  }
+
+  .panel {
+    border: 1px solid var(--edge);
+    background:
+      linear-gradient(180deg, var(--panel) 0%, rgba(11,22,32,0.55) 100%);
+    padding: 26px;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  }
+
+  .panel::before, .panel::after {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--cyan);
+    opacity: 0.7;
+  }
+  .panel::before { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+  .panel::after { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+
+  /* ---------- FUNCTION ---------- */
+
+  .barrel-diagram-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .choke-photo {
+    background: var(--void);
+    border: 1px solid var(--edge-2);
+    padding: 6px;
+    overflow: hidden;
+  }
+  .choke-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+  }
+  .choke-photo .caption {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--steel);
+    text-transform: uppercase;
+    padding: 6px 4px 2px;
+  }
+
+  .function-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .body-text {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--chrome);
+    max-width: 62ch;
+  }
+  .body-text p:first-child { margin-top: 0; }
+  .body-text p:last-child { margin-bottom: 0; }
+  .body-text strong {
+    color: var(--cyan);
+    font-weight: 600;
+    text-shadow: 0 0 6px rgba(78,203,255,0.25);
+  }
+
+  .barrel-diagram {
+    background: var(--void);
+    border: 1px solid var(--edge-2);
+    padding: 14px;
+    position: relative;
+  }
+  .barrel-diagram svg { display: block; width: 100%; height: auto; }
+
+  /* ---------- CHOKE CARDS ---------- */
+  .choke-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+
+  .choke-card {
+    border: 1px solid var(--edge);
+    background:
+      linear-gradient(160deg, var(--panel) 0%, rgba(15,32,48,0.85) 100%);
+    padding: 20px 20px 18px;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .choke-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px rgba(78,203,255,0.15);
+  }
+  .choke-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 50px;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan-glow);
+  }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .choke-short {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--cyan);
+    padding: 2px 8px;
+    border: 1px solid var(--edge);
+    background: rgba(78,203,255,0.05);
+  }
+
+  .choke-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--chrome);
+  }
+
+  .choke-name-en {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--steel);
+    letter-spacing: 2px;
+    margin-top: 2px;
+  }
+
+  .choke-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 14px 0;
+    padding: 12px 0;
+    border-top: 1px dashed var(--grid);
+    border-bottom: 1px dashed var(--grid);
+  }
+
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+
+  .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--steel);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--cyan);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+  .stat-value small {
+    font-size: 11px;
+    color: var(--steel);
+    font-weight: 500;
+    margin-left: 2px;
+  }
+
+  .choke-usage {
+    font-size: 14px;
+    color: var(--chrome);
+    line-height: 1.55;
+  }
+  .choke-usage-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--steel);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .ammo-block {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--grid);
+    font-size: 13px;
+  }
+  .ammo-row {
+    display: grid;
+    grid-template-columns: 68px 1fr;
+    gap: 8px;
+    padding: 3px 0;
+    align-items: baseline;
+  }
+  .ammo-key {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--steel);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .ammo-val {
+    color: var(--chrome);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .ammo-val.warn {
+    color: var(--amber);
+    font-weight: 600;
+  }
+
+  /* ---------- PROS/CONS ---------- */
+  .prospro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .pc-panel {
+    padding: 16px 18px;
+    border: 1px solid var(--grid);
+    background: rgba(11,22,32,0.6);
+    position: relative;
+  }
+  .pc-panel.pros { border-left: 2px solid var(--success); }
+  .pc-panel.cons { border-left: 2px solid var(--danger); }
+
+  .pc-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pros .pc-label { color: var(--success); }
+  .cons .pc-label { color: var(--danger); }
+  .pc-label::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: currentColor;
+    box-shadow: 0 0 6px currentColor;
+  }
+
+  .pc-panel ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .pc-panel li { margin-bottom: 4px; }
+  .pc-panel li::marker { color: var(--edge); }
+
+  /* ---------- PATTERNS ---------- */
+  .pattern-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .pattern-cell {
+    border: 1px solid var(--edge);
+    background:
+      radial-gradient(circle at center, rgba(11,32,48,0.9) 0%, var(--panel) 80%);
+    padding: 14px 12px 12px;
+    position: relative;
+  }
+  .pattern-cell::before {
+    content: '';
+    position: absolute;
+    top: 4px; left: 4px;
+    width: 10px; height: 10px;
+    border: 1px solid var(--cyan);
+    border-right: none; border-bottom: none;
+    opacity: 0.6;
+  }
+  .pattern-cell::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; right: 4px;
+    width: 10px; height: 10px;
+    border: 1px solid var(--cyan);
+    border-left: none; border-top: none;
+    opacity: 0.6;
+  }
+
+  .pattern-cell svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .pattern-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--grid);
+  }
+
+  .pattern-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--chrome);
+    text-transform: uppercase;
+  }
+
+  .pattern-pct {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--cyan);
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 6px rgba(78,203,255,0.3);
+  }
+
+  /* ---------- MATRIX ---------- */
+  .matrix-wrap {
+    overflow-x: auto;
+    margin-top: 4px;
+    scrollbar-color: var(--edge) transparent;
+  }
+  .matrix {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .matrix th {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    text-align: left;
+    padding: 12px 12px;
+    border-bottom: 1px solid var(--edge);
+    background: rgba(78,203,255,0.04);
+  }
+  .matrix td {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--grid);
+    vertical-align: middle;
+    font-variant-numeric: tabular-nums;
+    color: var(--chrome);
+  }
+  .matrix tr:last-child td { border-bottom: none; }
+  .matrix tr:hover td { background: rgba(78,203,255,0.04); }
+
+  .matrix .use { font-weight: 600; color: var(--chrome); }
+  .matrix .tag {
+    display: inline-block;
+    padding: 3px 9px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--cyan);
+    border: 1px solid var(--edge);
+    background: rgba(78,203,255,0.05);
+    white-space: nowrap;
+  }
+  .matrix .dist { color: var(--amber); font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 1px; }
+  .matrix .why { color: var(--steel); font-size: 13px; }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    margin-top: 40px;
+    padding: 18px 26px;
+    border-top: 1px solid var(--edge);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--steel);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+  .footer span { color: var(--cyan); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 780px) {
+    .function-grid { grid-template-columns: 1fr; }
+    .prospro-grid { grid-template-columns: 1fr; }
+    .hud-header {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 16px 20px;
+    }
+    .status { justify-self: start; }
+  }
+</style>
+
+<div class="container">
+
+  <a class="back-link" href="./index.html" target="_top"><span class="arrow">←</span> Zurück · KR Wolf Index</a>
+
+  <!-- HEADER -->
+  <header class="hud-header">
+    <div class="badge">ORD/BAL·07</div>
+    <div>
+      <h1 class="hud-title">Choke Matrix</h1>
+      <div class="hud-subtitle">Flintenlaufverengungen &nbsp;·&nbsp; Ballistisches Handbuch</div>
+    </div>
+    <div class="status"><span class="dot"></span> Signal aktiv</div>
+  </header>
+
+  <!-- 01 FUNKTION -->
+  <section class="section">
+    <div class="section-label">01 &nbsp;·&nbsp; Funktionsprinzip</div>
+    <h2 class="section-title">Was ein Choke tut</h2>
+    <div class="panel">
+      <div class="function-grid">
+        <div class="body-text">
+          <p>Ein <strong>Choke</strong> ist eine Verengung an der Mündung des Flintenlaufs — meist auf den letzten 5–10&nbsp;cm. Der Bohrungsdurchmesser wird um <strong>0,00 bis rund 1,10&nbsp;mm</strong> reduziert. Beim Verlassen des Laufs presst die Verengung die Schrotgarbe zusammen: sie wird <strong>länger, aber schmaler</strong>.</p>
+          <p>Das Ergebnis ist ein anderes <strong>Schussbild</strong>. Ein enger Choke bringt mehr Schrote in eine kleinere Fläche und erhöht damit die Reichweite. Ein offener Choke streut breit — weniger Reichweite, aber größere Trefferfläche auf kurze Distanz.</p>
+          <p>Gemessen wird die Wirkung standardisiert am prozentualen Anteil der Schrote, die auf <strong>35&nbsp;m Distanz</strong> in einem Zielkreis von <strong>76&nbsp;cm (30″)</strong> landen.</p>
+        </div>
+
+        <div class="barrel-diagram-wrap">
+          <div class="barrel-diagram">
+          <svg viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematische Darstellung eines Schrotlaufs mit Choke">
+            <defs>
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M20 0L0 0 0 20" fill="none" stroke="#14364c" stroke-width="0.5"/>
+              </pattern>
+              <linearGradient id="barrelGrad" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#1a3548"/>
+                <stop offset="0.5" stop-color="#0a1a26"/>
+                <stop offset="1" stop-color="#1a3548"/>
+              </linearGradient>
+              <radialGradient id="powderGlow" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0" stop-color="#ffb84d" stop-opacity="0.9"/>
+                <stop offset="1" stop-color="#ffb84d" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="420" height="240" fill="url(#grid)" opacity="0.7"/>
+
+            <!-- Corner ticks -->
+            <g stroke="#4ecbff" stroke-width="1" fill="none" opacity="0.6">
+              <path d="M4 4 L14 4 M4 4 L4 14"/>
+              <path d="M416 4 L406 4 M416 4 L416 14"/>
+              <path d="M4 236 L14 236 M4 236 L4 226"/>
+              <path d="M416 236 L406 236 M416 236 L416 226"/>
+            </g>
+
+            <!-- Barrel outer -->
+            <path d="M25 80 L245 80 L305 96 L305 128 L245 144 L25 144 Z"
+                  fill="url(#barrelGrad)" stroke="#4ecbff" stroke-width="1.4"/>
+            <!-- Inner bore -->
+            <path d="M25 92 L245 92 L300 104 L300 120 L245 132 L25 132 Z"
+                  fill="#05090d" stroke="#2a5a7a" stroke-width="0.6"/>
+
+            <!-- Powder + wad -->
+            <rect x="32" y="98" width="14" height="28" fill="#ffb84d" opacity="0.75"/>
+            <circle cx="39" cy="112" r="18" fill="url(#powderGlow)"/>
+
+            <!-- Pellets in barrel -->
+            <g fill="#dceff9">
+              <circle cx="72" cy="104" r="2.2"/><circle cx="78" cy="118" r="2.2"/>
+              <circle cx="85" cy="110" r="2.2"/><circle cx="92" cy="122" r="2.2"/>
+              <circle cx="98" cy="106" r="2.2"/><circle cx="105" cy="116" r="2.2"/>
+              <circle cx="112" cy="110" r="2.2"/><circle cx="119" cy="120" r="2.2"/>
+              <circle cx="126" cy="106" r="2.2"/><circle cx="133" cy="118" r="2.2"/>
+              <circle cx="140" cy="112" r="2.2"/><circle cx="147" cy="122" r="2.2"/>
+            </g>
+
+            <!-- Choke zone highlight -->
+            <path d="M245 80 L305 96 L305 128 L245 144 Z"
+                  fill="rgba(78,203,255,0.08)" stroke="#4ecbff" stroke-width="1.2" stroke-dasharray="3,2"/>
+
+            <!-- Muzzle exit garbe -->
+            <g fill="#4ecbff">
+              <circle cx="318" cy="98" r="1.6" opacity="0.9"/>
+              <circle cx="335" cy="94" r="1.6" opacity="0.85"/>
+              <circle cx="352" cy="88" r="1.6" opacity="0.8"/>
+              <circle cx="370" cy="82" r="1.6" opacity="0.7"/>
+              <circle cx="388" cy="76" r="1.6" opacity="0.6"/>
+              <circle cx="322" cy="112" r="1.6" opacity="0.9"/>
+              <circle cx="342" cy="112" r="1.6" opacity="0.85"/>
+              <circle cx="362" cy="112" r="1.6" opacity="0.75"/>
+              <circle cx="384" cy="112" r="1.6" opacity="0.65"/>
+              <circle cx="404" cy="112" r="1.6" opacity="0.5"/>
+              <circle cx="318" cy="126" r="1.6" opacity="0.9"/>
+              <circle cx="336" cy="130" r="1.6" opacity="0.85"/>
+              <circle cx="354" cy="134" r="1.6" opacity="0.75"/>
+              <circle cx="372" cy="138" r="1.6" opacity="0.65"/>
+              <circle cx="390" cy="144" r="1.6" opacity="0.55"/>
+            </g>
+
+            <!-- Trajectory guide lines -->
+            <g stroke="#4ecbff" stroke-width="0.5" stroke-dasharray="1,3" fill="none" opacity="0.4">
+              <line x1="305" y1="96" x2="405" y2="72"/>
+              <line x1="305" y1="128" x2="405" y2="148"/>
+            </g>
+
+            <!-- Labels -->
+            <text x="30" y="72" fill="#7a8f9e" font-family="Share Tech Mono" font-size="9" letter-spacing="1.5">PATRONE</text>
+            <text x="145" y="72" fill="#7a8f9e" font-family="Share Tech Mono" font-size="9" letter-spacing="1.5">LAUF · GLATT</text>
+            <text x="256" y="72" fill="#4ecbff" font-family="Share Tech Mono" font-size="9" letter-spacing="1.5">CHOKE</text>
+            <text x="335" y="72" fill="#7a8f9e" font-family="Share Tech Mono" font-size="9" letter-spacing="1.5">GARBE</text>
+
+            <!-- Callout -->
+            <line x1="275" y1="150" x2="275" y2="180" stroke="#4ecbff" stroke-width="0.6" stroke-dasharray="2,2"/>
+            <line x1="180" y1="180" x2="370" y2="180" stroke="#4ecbff" stroke-width="0.6"/>
+            <text x="275" y="196" fill="#4ecbff" font-family="Share Tech Mono" font-size="10" letter-spacing="1.5" text-anchor="middle">VERENGUNG Ø −0,00…1,10 mm</text>
+
+            <text x="10" y="228" fill="#7a8f9e" font-family="Share Tech Mono" font-size="8" letter-spacing="1.5">FIG · SCHNITT LAUFMÜNDUNG</text>
+            <text x="410" y="228" fill="#7a8f9e" font-family="Share Tech Mono" font-size="8" letter-spacing="1.5" text-anchor="end">MAßSTAB SCHEMATISCH</text>
+          </svg>
+        </div>
+          <div class="choke-photo">
+            <img src="img/choke-wechselset.jpg" alt="Wechselchoke-Set" loading="lazy">
+            <div class="caption">Wechselchoke-Set · SK bis F</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 TYPEN -->
+  <section class="section">
+    <div class="section-label">02 &nbsp;·&nbsp; Typenkatalog</div>
+    <h2 class="section-title">Die sieben Choke-Klassen</h2>
+    <div class="choke-grid" id="chokeGrid"></div>
+  </section>
+
+  <!-- 03 VORTEILE / NACHTEILE -->
+  <section class="section">
+    <div class="section-label">03 &nbsp;·&nbsp; Kompromissanalyse</div>
+    <h2 class="section-title">Enger vs. offener Choke</h2>
+    <div class="prospro-grid">
+      <div class="pc-panel pros">
+        <div class="pc-label">Enger Choke — Vorteile</div>
+        <ul>
+          <li>Höhere effektive Schussdistanz (35–50 m)</li>
+          <li>Dichtere Trefferzone auf kleinem Wild</li>
+          <li>Bessere Wirkung bei kritischer Anschusslage</li>
+          <li>Weniger Randstreuer, weniger Verletzungen ohne Fangwirkung</li>
+        </ul>
+      </div>
+      <div class="pc-panel cons">
+        <div class="pc-label">Enger Choke — Nachteile</div>
+        <ul>
+          <li>Kleine Trefferfläche — verlangt präzises Vorhalten</li>
+          <li>Auf kurze Distanz Wildbret-Zerstörung</li>
+          <li>Nicht geeignet für Flintenlaufgeschosse mit weichem Blei</li>
+          <li>Höhere Belastung, kein Stahlschrot in extra full</li>
+        </ul>
+      </div>
+      <div class="pc-panel pros">
+        <div class="pc-label">Offener Choke — Vorteile</div>
+        <ul>
+          <li>Breite Streuung — verzeihender bei schnellem Wild</li>
+          <li>Ideal für Nahdistanz und dichte Deckung</li>
+          <li>Slugs, Postenschrot und Stahlschrot problemlos</li>
+          <li>Wildbret bleibt bei Nahschuss brauchbar</li>
+        </ul>
+      </div>
+      <div class="pc-panel cons">
+        <div class="pc-label">Offener Choke — Nachteile</div>
+        <ul>
+          <li>Reichweite auf 25–30 m begrenzt</li>
+          <li>Löcher im Muster über 30 m — Fehlschüsse trotz Ziel-Deckung</li>
+          <li>Bei kleinen Zielen dünne Deckung</li>
+          <li>Höherer Schrotverbrauch pro Treffer auf Distanz</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 SCHUSSBILDER -->
+  <section class="section">
+    <div class="section-label">04 &nbsp;·&nbsp; Schussbild-Analyse</div>
+    <h2 class="section-title">Streumuster · 76 cm Kreis · 35 m</h2>
+    <div class="panel">
+      <p class="body-text" style="margin-top: 0; margin-bottom: 22px;">
+        Ballistische Simulation mit ≈ 250 Schroten pro Ladung. Der weiße Kreis markiert den 30″-Standard-Zielkreis. Die Prozentangabe ist der Anteil an Schroten <strong>innerhalb</strong> dieses Kreises — die klassische Choke-Messgröße.
+      </p>
+      <div class="pattern-grid" id="patternGrid"></div>
+    </div>
+  </section>
+
+  <!-- 05 EINSATZMATRIX -->
+  <section class="section">
+    <div class="section-label">05 &nbsp;·&nbsp; Einsatzmatrix</div>
+    <h2 class="section-title">Wann welcher Choke?</h2>
+    <div class="panel">
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Einsatz</th>
+              <th>Empfohlen</th>
+              <th>Distanz</th>
+              <th>Begründung</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="use">Flintenlaufgeschoss / Slug</td>
+              <td><span class="tag">CYL / SK</span></td>
+              <td class="dist">15–40 m</td>
+              <td class="why">Enge Chokes verformen Bleigeschosse — Präzision und Sicherheit leiden.</td>
+            </tr>
+            <tr>
+              <td class="use">Drückjagd auf Sauen</td>
+              <td><span class="tag">CYL / IC</span></td>
+              <td class="dist">10–30 m</td>
+              <td class="why">Bewegtes Wild in Deckung — Streuung verzeiht Vorhaltefehler.</td>
+            </tr>
+            <tr>
+              <td class="use">Kaninchen im Kraut</td>
+              <td><span class="tag">IC / M</span></td>
+              <td class="dist">15–30 m</td>
+              <td class="why">Kompromiss aus Trefferfläche und Reichweite auf mittleres Wild.</td>
+            </tr>
+            <tr>
+              <td class="use">Fasan · aufgehende Jagd</td>
+              <td><span class="tag">M</span></td>
+              <td class="dist">20–35 m</td>
+              <td class="why">Universalchoke — deckt die meisten Situationen der Niederwildjagd.</td>
+            </tr>
+            <tr>
+              <td class="use">Trap-Sport</td>
+              <td><span class="tag">M / IM</span></td>
+              <td class="dist">30–40 m</td>
+              <td class="why">Standardisierte Distanz, wegfliegende Wurftauben — enge Muster nötig.</td>
+            </tr>
+            <tr>
+              <td class="use">Ente auf Distanz · Stahlschrot</td>
+              <td><span class="tag">IM</span></td>
+              <td class="dist">30–40 m</td>
+              <td class="why">Stahl streut enger als Blei — F/XF überlastet, IM ist das Optimum.</td>
+            </tr>
+            <tr>
+              <td class="use">Gans / Ansitz weit</td>
+              <td><span class="tag">F</span></td>
+              <td class="dist">35–45 m</td>
+              <td class="why">Maximale Deckung bei großem, robustem Wild auf Grenzdistanz.</td>
+            </tr>
+            <tr>
+              <td class="use">Truthahn (Turkey Load)</td>
+              <td><span class="tag">XF</span></td>
+              <td class="dist">30–50 m</td>
+              <td class="why">Ziel ist die kleine Kopf-Hals-Zone — verlangt extrem dichte Musterkonzentration.</td>
+            </tr>
+            <tr>
+              <td class="use">Skeet · Wurfscheibe</td>
+              <td><span class="tag">SK</span></td>
+              <td class="dist">15–25 m</td>
+              <td class="why">Kurze, schnelle Ziele quer — bewusst breites Muster.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>ORD·BAL·07 &nbsp;/&nbsp; <span>Rev 2.1</span></div>
+    <div>Klassifikation &nbsp;·&nbsp; <span>Jäger-Intern</span></div>
+    <div>End of Document</div>
+  </footer>
+
+</div>
+
+<script>
+  /* ---------- Choke data ---------- */
+  const chokes = [
+    {
+      name: 'Zylinder', en: 'Cylinder', short: 'CYL', verengung: '0,00', pct: 40, dist: '15–25',
+      v0: '400', vZiel: '280', vRef: '3,0 mm @ 25 m',
+      use: 'Slugs, Drückjagd im dichten Bestand, Postenschrot auf Nahdistanz.',
+      muni: { schrot: '3,0–4,0 mm (Posten)', last: '32–36 g Blei · 28 g Slug', frei: 'Alles frei — Slug, Blei, Stahl, Wismut' }
+    },
+    {
+      name: 'Skeet', en: 'Skeet', short: 'SK', verengung: '0,13', pct: 45, dist: '15–25',
+      v0: '400', vZiel: '215', vRef: '2,25 mm @ 25 m',
+      use: 'Sportschützen im Skeet-Stand, sehr schnelle Querschüsse.',
+      muni: { schrot: '2,0–2,4 mm (Nr. 8–9)', last: '24–28 g Sportlast', frei: 'Blei · Stahl uneingeschränkt' }
+    },
+    {
+      name: 'Viertelchoke', en: 'Improved Cylinder', short: 'IC', verengung: '0,25', pct: 50, dist: '20–30',
+      v0: '400', vZiel: '225', vRef: '2,5 mm @ 30 m',
+      use: 'Kaninchen, Waldschnepfe, kurze Federwildjagd, Drückjagd.',
+      muni: { schrot: '2,4–2,7 mm (Nr. 7–7½)', last: '28–32 g Blei', frei: 'Stahl bis Nr. 4 · Slug bedingt' }
+    },
+    {
+      name: 'Halbchoke', en: 'Modified', short: 'M', verengung: '0,50', pct: 60, dist: '25–35',
+      v0: '400', vZiel: '225', vRef: '2,75 mm @ 35 m',
+      use: 'Universalchoke für Niederwild — Fasan, Rebhuhn, Ente in mittlerer Distanz.',
+      muni: { schrot: '2,4–3,0 mm (Nr. 5–7)', last: '32–36 g Blei · 32 g Stahl', frei: 'Blei · Stahl bis Nr. 3 · Wismut' }
+    },
+    {
+      name: 'Dreiviertelchoke', en: 'Improved Modified', short: 'IM', verengung: '0,75', pct: 65, dist: '30–40',
+      v0: '400', vZiel: '230', vRef: '3,0 mm @ 40 m',
+      use: 'Trap, Ente auf Distanz, Stahlschrot-Wasserwild — enger als Halb ohne Extrembelastung.',
+      muni: { schrot: '2,7–3,5 mm (Nr. 3–5)', last: '34–36 g Blei · 32–36 g Stahl HP', frei: 'Optimum für Stahl · nur Stahl-taugliche Chokes' }
+    },
+    {
+      name: 'Vollchoke', en: 'Full', short: 'F', verengung: '1,00', pct: 70, dist: '35–45',
+      v0: '400', vZiel: '245', vRef: '3,5 mm @ 45 m',
+      use: 'Krähe, Gans, langer Ansitz. Nicht mit grobem Stahlschrot ohne Freigabe schießen.',
+      muni: { schrot: '3,0–3,5 mm Blei (Nr. 3–4) · Wismut', last: '36–40 g Magnum', frei: '⚠ Stahl NUR mit expliziter Choke-Freigabe · kein Slug' }
+    },
+    {
+      name: 'Extra Voll', en: 'Extra Full', short: 'XF', verengung: '1,10+', pct: 75, dist: '40–50',
+      v0: '400', vZiel: '270', vRef: 'Wolfram @ 50 m',
+      use: 'Turkey-Loads, präzise Kopfschüsse auf sitzendes Wild. Sehr enge Trefferfläche.',
+      muni: { schrot: 'Wolfram / Wismut Nr. 4–6', last: '42–56 g Turkey Magnum', frei: '⚠ Kein Stahl · kein Slug · nur Turkey-Spezialladungen' }
+    }
+  ];
+
+  /* ---------- Build choke cards ---------- */
+  const grid = document.getElementById('chokeGrid');
+  chokes.forEach(c => {
+    const card = document.createElement('article');
+    card.className = 'choke-card';
+    card.innerHTML = `
+      <div class="card-head">
+        <div>
+          <h3 class="choke-name">${c.name}</h3>
+          <div class="choke-name-en">${c.en}</div>
+        </div>
+        <div class="choke-short">${c.short}</div>
+      </div>
+      <div class="choke-stats">
+        <div class="stat">
+          <span class="stat-label">Verengung</span>
+          <span class="stat-value">${c.verengung}<small>mm</small></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Deckung 35 m</span>
+          <span class="stat-value">${c.pct}<small>%</small></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Distanz</span>
+          <span class="stat-value" style="font-size:15px;">${c.dist}<small>m</small></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">V₀ → V-Ziel</span>
+          <span class="stat-value" style="font-size:14px;">${c.v0} → ${c.vZiel}<small>m/s</small></span>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--steel);letter-spacing:1px;margin-top:2px;">${c.vRef}</span>
+        </div>
+      </div>
+      <div class="choke-usage">
+        <span class="choke-usage-label">Einsatz</span>
+        ${c.use}
+      </div>
+      <div class="ammo-block">
+        <span class="choke-usage-label">Munition</span>
+        <div class="ammo-row"><span class="ammo-key">Schrot</span><span class="ammo-val">${c.muni.schrot}</span></div>
+        <div class="ammo-row"><span class="ammo-key">Ladung</span><span class="ammo-val">${c.muni.last}</span></div>
+        <div class="ammo-row"><span class="ammo-key">Freigabe</span><span class="ammo-val ${c.muni.frei.startsWith('⚠') ? 'warn' : ''}">${c.muni.frei}</span></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  /* ---------- Shot pattern generator ---------- */
+  // 2D Gaussian: P(r < R) = 1 - exp(-R²/(2σ²))
+  //  => σ = R / sqrt(-2 ln(1 - P))
+  // Seeded PRNG so patterns are stable across renders.
+  function mulberry32(seed) {
+    return function() {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = seed;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function boxMuller(rng) {
+    let u = 0, v = 0;
+    while (u === 0) u = rng();
+    while (v === 0) v = rng();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  }
+
+  function patternSvg(pct, seed) {
+    const size = 220;
+    const cx = size / 2, cy = size / 2;
+    const R = 78;               // 76 cm target circle radius (svg units)
+    const outer = 108;          // allow spread beyond circle
+    const N = 250;
+    const P = pct / 100;
+    const sigma = R / Math.sqrt(-2 * Math.log(1 - P));
+    const rng = mulberry32(seed);
+
+    let dots = '';
+    for (let i = 0; i < N; i++) {
+      const dx = boxMuller(rng) * sigma;
+      const dy = boxMuller(rng) * sigma;
+      const x = cx + dx;
+      const y = cy + dy;
+      // Clip pellets that would fall outside the visualization
+      if (Math.abs(dx) > outer || Math.abs(dy) > outer) continue;
+      const inside = (dx*dx + dy*dy) <= (R*R);
+      const color = inside ? '#4ecbff' : '#7a8f9e';
+      const op = inside ? 0.95 : 0.55;
+      dots += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="1.4" fill="${color}" opacity="${op}"/>`;
+    }
+
+    // Reticle crosshair
+    const reticle = `
+      <g stroke="#2a5a7a" stroke-width="0.6" fill="none">
+        <line x1="${cx}" y1="6" x2="${cx}" y2="18"/>
+        <line x1="${cx}" y1="${size-6}" x2="${cx}" y2="${size-18}"/>
+        <line x1="6" y1="${cy}" x2="18" y2="${cy}"/>
+        <line x1="${size-6}" y1="${cy}" x2="${size-18}" y2="${cy}"/>
+      </g>
+      <g stroke="#4ecbff" stroke-width="0.8" fill="none" opacity="0.6">
+        <line x1="${cx-6}" y1="${cy}" x2="${cx+6}" y2="${cy}"/>
+        <line x1="${cx}" y1="${cy-6}" x2="${cx}" y2="${cy+6}"/>
+      </g>
+    `;
+
+    return `
+      <svg viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schussbild bei ${pct}%">
+        <defs>
+          <radialGradient id="tg${seed}" cx="0.5" cy="0.5" r="0.55">
+            <stop offset="0" stop-color="#0f2030" stop-opacity="0.6"/>
+            <stop offset="1" stop-color="#05090d" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="${size}" height="${size}" fill="url(#tg${seed})"/>
+        <circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#dceff9" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.7"/>
+        ${reticle}
+        ${dots}
+      </svg>
+    `;
+  }
+
+  const pgrid = document.getElementById('patternGrid');
+  chokes.forEach((c, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'pattern-cell';
+    cell.innerHTML = `
+      ${patternSvg(c.pct, 1000 + i * 137)}
+      <div class="pattern-info">
+        <span class="pattern-name">${c.short} · ${c.name}</span>
+        <span class="pattern-pct">${c.pct}%</span>
+      </div>
+    `;
+    pgrid.appendChild(cell);
+  });
+</script>
